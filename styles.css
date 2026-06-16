@@ -62,7 +62,7 @@ body {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #e94560 100%);
+    background: url('IMG_5209.jpeg') center center / cover no-repeat;
     z-index: 0;
 }
 
@@ -70,8 +70,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 70% 20%, rgba(233, 69, 96, 0.3) 0%, transparent 60%),
-                radial-gradient(ellipse at 30% 80%, rgba(248, 181, 0, 0.15) 0%, transparent 50%);
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.75) 0%, rgba(22, 33, 62, 0.7) 25%, rgba(15, 52, 96, 0.65) 50%, rgba(233, 69, 96, 0.4) 100%);
 }
 
 .hero-content {
