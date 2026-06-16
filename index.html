@@ -23,7 +23,7 @@
             <h1>You remember<br>your first mile.</h1>
             <p class="hero-subhead">The burning lungs. The voice that said <em>"stop."</em><br>But you didn't. And it changed everything.</p>
             <p class="hero-cta-text">Someone out there is one conversation away from becoming a runner.<br><strong>Be that person for them.</strong></p>
-            <a href="#join" class="btn btn-primary">I'm In — Let's Go</a>
+            <a href="#who" class="btn btn-primary">Learn More</a>
             <p class="hero-note">Free to start. No certifications needed. Just heart.</p>
         </div>
         <div class="scroll-indicator">
@@ -123,7 +123,7 @@
                         <li>You believe showing up matters more than PRs</li>
                         <li>You have 10 minutes a week to check in</li>
                     </ul>
-                    <a href="#join" class="btn btn-secondary">Sign Up as a Guide</a>
+                    <a href="#join" class="btn btn-secondary">Coming Soon</a>
                 </div>
                 <div class="who-card runner-card">
                     <div class="who-card-header">
@@ -137,7 +137,7 @@
                         <li>You want a real person in your corner</li>
                         <li>You just need someone to say "you can do this"</li>
                     </ul>
-                    <a href="#join" class="btn btn-tertiary">Find Your Guide</a>
+                    <a href="#join" class="btn btn-tertiary">Coming Soon</a>
                 </div>
             </div>
         </div>
@@ -212,35 +212,12 @@
         </div>
     </section>
 
-    <!-- Signup Section -->
+    <!-- Coming Soon Section -->
     <section class="signup" id="join">
         <div class="container">
             <div class="signup-content fade-in">
                 <h2>We're building this right now.</h2>
-                <p class="signup-sub">Be one of the first. Drop your email, pick your side, and we'll let you know the moment it's ready.</p>
-                
-                <form class="signup-form" id="waitlist-form">
-                    <div class="form-row">
-                        <input type="email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-row role-row">
-                        <label class="role-chip">
-                            <input type="radio" name="role" value="guide" required>
-                            <span>&#127939; I want to guide</span>
-                        </label>
-                        <label class="role-chip">
-                            <input type="radio" name="role" value="runner">
-                            <span>&#127793; I want to run</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full">Count Me In</button>
-                </form>
-
-                <div class="form-success" id="form-success" style="display: none;">
-                    <div class="success-icon">&#9889;</div>
-                    <h3>You're on the list!</h3>
-                    <p>We'll reach out soon. In the meantime — go for a run. You've earned it.</p>
-                </div>
+                <p class="signup-sub">First Mile Coach is coming soon. Stay tuned.</p>
             </div>
         </div>
     </section>
@@ -270,26 +247,6 @@
         }, observerOptions);
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Form handling
-        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = this;
-            const success = document.getElementById('form-success');
-            
-            const submission = {
-                email: form.email.value,
-                role: form.role.value,
-                timestamp: new Date().toISOString()
-            };
-            
-            let submissions = JSON.parse(localStorage.getItem('fmc_waitlist') || '[]');
-            submissions.push(submission);
-            localStorage.setItem('fmc_waitlist', JSON.stringify(submissions));
-            
-            form.style.display = 'none';
-            success.style.display = 'block';
-        });
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
