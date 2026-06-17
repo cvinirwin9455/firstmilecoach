@@ -62,7 +62,7 @@ body {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('IMG_5209.jpeg') center center / cover no-repeat;
+    background: url('IMG_5209.jpeg') center top / cover no-repeat;
     z-index: 0;
 }
 
