@@ -224,6 +224,60 @@ body {
 }
 
 
+/* === Reality Section (Before image) === */
+.reality-section {
+    padding: 100px 24px;
+    background: var(--color-bg);
+    text-align: center;
+}
+
+.reality-content h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--color-dark);
+    margin-bottom: 36px;
+}
+
+.reality-image {
+    max-width: 600px;
+    margin: 0 auto 32px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 4px solid rgba(0, 0, 0, 0.06);
+    transform: rotate(-1deg);
+    transition: transform 0.3s ease;
+}
+
+.reality-image:hover {
+    transform: rotate(0deg);
+}
+
+.reality-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.reality-caption {
+    max-width: 580px;
+    margin: 0 auto 20px;
+    font-size: 1.05rem;
+    color: var(--color-text-light);
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.reality-pitch {
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: var(--color-dark);
+    line-height: 1.8;
+    font-weight: 600;
+}
+
+
 /* === Path Sections (How It Works + Philosophy) === */
 .path-section {
     padding: 100px 24px;
