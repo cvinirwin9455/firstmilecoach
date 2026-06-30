@@ -7,22 +7,23 @@
 
 :root {
     --color-dark: #1a1a2e;
-    --color-primary: #e94560;
-    --color-primary-hover: #ff6b81;
+    --color-primary: #2563eb;
+    --color-primary-hover: #3b82f6;
     --color-secondary: #0f3460;
-    --color-accent: #f8b500;
-    --color-warm: #fdf6ec;
-    --color-warm-alt: #fff9f0;
-    --color-text: #2c2c2c;
-    --color-text-light: #555;
-    --color-text-muted: #888;
+    --color-accent: #10b981;
+    --color-accent-light: #d1fae5;
+    --color-warm: #f0fdf4;
+    --color-warm-alt: #ecfdf5;
+    --color-text: #1e293b;
+    --color-text-light: #475569;
+    --color-text-muted: #94a3b8;
     --color-white: #ffffff;
-    --color-bg: #fefefe;
+    --color-bg: #fafbfc;
     --color-card-bg: #ffffff;
     --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 12px 60px rgba(0, 0, 0, 0.12);
+    --shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 60px rgba(0, 0, 0, 0.1);
     --radius: 16px;
     --radius-sm: 8px;
 }
@@ -50,7 +51,7 @@ body {
 /* === Hero === */
 .hero {
     position: relative;
-    min-height: 70vh;
+    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +63,7 @@ body {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('IMG_5209.jpeg') center 30% / cover no-repeat;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f3460 100%);
     z-index: 0;
 }
 
@@ -70,13 +71,14 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.7) 50%, rgba(15, 52, 96, 0.65) 100%);
+    background: radial-gradient(ellipse at 30% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 700px;
+    max-width: 750px;
     padding: 80px 24px;
 }
 
@@ -89,15 +91,15 @@ body {
     color: var(--color-accent);
     margin-bottom: 20px;
     padding: 6px 16px;
-    border: 1px solid rgba(248, 181, 0, 0.4);
+    border: 1px solid rgba(16, 185, 129, 0.4);
     border-radius: 50px;
 }
 
 .hero h1 {
     font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1.2;
     margin-bottom: 24px;
 }
 
@@ -105,8 +107,13 @@ body {
     font-size: clamp(1rem, 2vw, 1.15rem);
     line-height: 1.8;
     opacity: 0.85;
-    max-width: 580px;
+    max-width: 620px;
     margin: 0 auto;
+}
+
+.hero-subhead strong {
+    color: var(--color-accent);
+    font-weight: 700;
 }
 
 .scroll-indicator {
@@ -131,9 +138,9 @@ body {
 }
 
 
-/* === The Fork (Choose Your Path) === */
+/* === The Problem / Who It's For === */
 .the-fork {
-    padding: 80px 24px;
+    padding: 100px 24px;
     background: var(--color-white);
     text-align: center;
 }
@@ -142,13 +149,17 @@ body {
     font-family: var(--font-heading);
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     color: var(--color-dark);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .fork-sub {
     color: var(--color-text-light);
     font-size: 1.05rem;
-    margin-bottom: 48px;
+    margin-bottom: 56px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
 }
 
 .fork-grid {
@@ -166,34 +177,32 @@ body {
     text-align: center;
     padding: 48px 32px;
     border-radius: var(--radius);
-    text-decoration: none;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    cursor: pointer;
 }
 
 .fork-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
 }
 
 .fork-guide {
-    background: linear-gradient(145deg, #0f3460, #16213e);
+    background: linear-gradient(145deg, #1e40af, #1e3a5f);
     color: var(--color-white);
-    box-shadow: 0 8px 40px rgba(15, 52, 96, 0.3);
+    box-shadow: 0 8px 40px rgba(30, 64, 175, 0.25);
 }
 
 .fork-guide:hover {
-    box-shadow: 0 16px 60px rgba(15, 52, 96, 0.4);
+    box-shadow: 0 16px 60px rgba(30, 64, 175, 0.35);
 }
 
 .fork-runner {
     background: var(--color-warm);
     color: var(--color-dark);
-    border: 2px solid rgba(0,0,0,0.06);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+    border: 2px solid rgba(16, 185, 129, 0.15);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05);
 }
 
 .fork-runner:hover {
-    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 60px rgba(16, 185, 129, 0.12);
 }
 
 .fork-emoji {
@@ -211,38 +220,18 @@ body {
 .fork-card p {
     font-size: 0.95rem;
     line-height: 1.7;
-    opacity: 0.8;
-    margin-bottom: 24px;
-}
-
-.fork-cta {
-    display: inline-block;
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 8px 20px;
-    border-radius: 50px;
-    transition: all 0.2s ease;
-}
-
-.fork-guide .fork-cta {
-    background: var(--color-primary);
-    color: var(--color-white);
-}
-
-.fork-runner .fork-cta {
-    background: var(--color-secondary);
-    color: var(--color-white);
+    opacity: 0.85;
 }
 
 
-/* === Path Sections (Guide + Runner) === */
+/* === Path Sections (How It Works + Philosophy) === */
 .path-section {
     padding: 100px 24px;
 }
 
 .guide-path {
-    background: linear-gradient(180deg, #f0f4f8 0%, var(--color-white) 100%);
-    border-top: 4px solid var(--color-secondary);
+    background: linear-gradient(180deg, #f8fafc 0%, var(--color-white) 100%);
+    border-top: 4px solid var(--color-primary);
 }
 
 .runner-path {
@@ -262,13 +251,13 @@ body {
 }
 
 .guide-path .path-label {
-    background: var(--color-secondary);
+    background: var(--color-primary);
     color: var(--color-white);
 }
 
 .runner-path .path-label {
     background: var(--color-accent);
-    color: var(--color-dark);
+    color: var(--color-white);
 }
 
 .path-header {
@@ -332,12 +321,12 @@ body {
 }
 
 .guide-path .path-step-num {
-    background: var(--color-secondary);
+    background: var(--color-primary);
 }
 
 .runner-path .path-step-num {
     background: var(--color-accent);
-    color: var(--color-dark);
+    color: var(--color-white);
 }
 
 .path-step strong {
@@ -393,12 +382,79 @@ body {
 }
 
 .guide-path .check-list li::before {
-    color: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 .runner-path .check-list li::before {
     color: var(--color-accent);
 }
+
+
+/* === Pricing Section === */
+.pricing-section {
+    padding: 100px 24px;
+    background: var(--color-white);
+    text-align: center;
+}
+
+.pricing-content h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-dark);
+    margin-bottom: 40px;
+}
+
+.price-card {
+    display: inline-block;
+    padding: 48px 64px;
+    background: linear-gradient(145deg, #0f172a, #1e293b);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+    margin-bottom: 32px;
+}
+
+.price-amount {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.price-currency {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 900;
+    color: var(--color-accent);
+    line-height: 1;
+}
+
+.price-period {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.price-alt {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 16px;
+}
+
+.price-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+}
+
+.pricing-note {
+    max-width: 550px;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: var(--color-text-light);
+    line-height: 1.8;
+}
+
 
 /* === Path Quote === */
 .path-quote {
@@ -410,12 +466,13 @@ body {
 
 .path-quote blockquote p {
     font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
     font-style: italic;
     color: var(--color-white);
     line-height: 1.6;
     opacity: 0.9;
 }
+
 
 /* === Why Section === */
 .why-section {
@@ -440,12 +497,13 @@ body {
 }
 
 .why-bold {
-    font-size: 1.3rem !important;
+    font-size: 1.4rem !important;
     font-weight: 800;
     color: var(--color-primary) !important;
     margin-top: 28px !important;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
+
 
 /* === Stats === */
 .stats {
@@ -465,7 +523,7 @@ body {
     font-family: var(--font-heading);
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 900;
-    color: var(--color-primary);
+    color: var(--color-accent);
     line-height: 1;
     margin-bottom: 8px;
 }
@@ -480,7 +538,7 @@ body {
 /* === Coming Soon / Signup === */
 .signup {
     padding: 80px 24px;
-    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+    background: linear-gradient(135deg, #1e40af 0%, #0f3460 100%);
     color: var(--color-white);
     text-align: center;
 }
@@ -493,13 +551,22 @@ body {
 
 .signup-sub {
     font-size: 1.05rem;
-    opacity: 0.7;
+    opacity: 0.75;
+    margin-bottom: 8px;
 }
+
+.signup-cta {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-top: 16px;
+}
+
 
 /* === Footer === */
 .footer {
     padding: 48px 24px;
-    background: var(--color-dark);
+    background: #0f172a;
     color: var(--color-white);
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -523,6 +590,7 @@ body {
     opacity: 0.3;
 }
 
+
 /* === Animations === */
 .fade-in {
     opacity: 0;
@@ -535,10 +603,11 @@ body {
     transform: translateY(0);
 }
 
+
 /* === Responsive === */
 @media (max-width: 768px) {
     .hero {
-        min-height: 60vh;
+        min-height: 65vh;
     }
 
     .fork-grid {
@@ -560,6 +629,14 @@ body {
 
     .path-quote {
         padding: 28px 20px;
+    }
+
+    .price-card {
+        padding: 36px 40px;
+    }
+
+    .pricing-section {
+        padding: 70px 20px;
     }
 }
 
@@ -585,5 +662,9 @@ body {
         width: 32px;
         height: 32px;
         font-size: 0.8rem;
+    }
+
+    .price-card {
+        padding: 32px 24px;
     }
 }
