@@ -55,12 +55,13 @@ body {
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 20px 0;
+    padding: 40px 0;
 }
 
 .nav .container {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .nav-brand {
@@ -69,7 +70,7 @@ body {
 }
 
 .nav-logo {
-    height: 44px;
+    height: 132px;
     width: auto;
     display: block;
 }
@@ -106,7 +107,7 @@ body {
     position: relative;
     z-index: 1;
     max-width: 750px;
-    padding: 80px 24px;
+    padding: 200px 24px 80px;
 }
 
 .hero-tag {
@@ -742,7 +743,7 @@ body {
 }
 
 .footer-logo {
-    height: 36px;
+    height: 100px;
     width: auto;
 }
 
