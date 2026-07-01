@@ -374,22 +374,9 @@
                             handleCountry(data.countryCode);
                         })
                         .catch(function() {
-                            // Fallback 2: Use browser timezone as a rough guess
-                            try {
-                                var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-                                if (tz.startsWith('Europe/London') || tz.startsWith('Europe/Belfast')) {
-                                    handleCountry('GB');
-                                } else if (tz.startsWith('America/')) {
-                                    // Could be US or Canada - default to US
-                                    handleCountry('US');
-                                } else if (tz.startsWith('Europe/')) {
-                                    // Generic Europe - show EUR
-                                    handleCountry('DE');
-                                }
-                                // If we can't determine, just show $ defaults
-                            } catch(e) {
-                                // Give up gracefully - show $ defaults
-                            }
+                            // Both APIs failed - we can't verify location
+                            // Block the user to be safe (they can refresh or disable VPN)
+                            showGeoBlocked();
                         });
                 });
         })();
