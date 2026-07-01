@@ -336,23 +336,61 @@
                 }
             }
 
-            // Fetch geo data
-            fetch('https://ipapi.co/json/')
-                .then(function(res) { return res.json(); })
+            // Handle the detected country
+            function handleCountry(country) {
+                country = (country || '').toUpperCase();
+
+                if (!country) return; // couldn't detect, show defaults
+
+                if (!ALLOWED_COUNTRIES.includes(country)) {
+                    showGeoBlocked();
+                    return;
+                }
+
+                var currency = getCurrency(country);
+                localisePrices(currency);
+            }
+
+            // Try multiple geo APIs with fallbacks (cache-busted)
+            var cacheBust = '?_=' + Date.now();
+
+            // Primary: ipapi.co
+            fetch('https://ipapi.co/json/' + cacheBust, { cache: 'no-store' })
+                .then(function(res) {
+                    if (!res.ok) throw new Error('ipapi failed');
+                    return res.json();
+                })
                 .then(function(data) {
-                    var country = (data.country_code || '').toUpperCase();
-
-                    if (!ALLOWED_COUNTRIES.includes(country)) {
-                        showGeoBlocked();
-                        return;
-                    }
-
-                    var currency = getCurrency(country);
-                    localisePrices(currency);
+                    handleCountry(data.country_code || data.country);
                 })
                 .catch(function() {
-                    // If geo lookup fails, just show the page with default ($) prices
-                    // Don't block the user
+                    // Fallback 1: ip-api.com (different provider, good with VPNs)
+                    fetch('http://ip-api.com/json/?fields=countryCode', { cache: 'no-store' })
+                        .then(function(res) {
+                            if (!res.ok) throw new Error('ip-api failed');
+                            return res.json();
+                        })
+                        .then(function(data) {
+                            handleCountry(data.countryCode);
+                        })
+                        .catch(function() {
+                            // Fallback 2: Use browser timezone as a rough guess
+                            try {
+                                var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+                                if (tz.startsWith('Europe/London') || tz.startsWith('Europe/Belfast')) {
+                                    handleCountry('GB');
+                                } else if (tz.startsWith('America/')) {
+                                    // Could be US or Canada - default to US
+                                    handleCountry('US');
+                                } else if (tz.startsWith('Europe/')) {
+                                    // Generic Europe - show EUR
+                                    handleCountry('DE');
+                                }
+                                // If we can't determine, just show $ defaults
+                            } catch(e) {
+                                // Give up gracefully - show $ defaults
+                            }
+                        });
                 });
         })();
 
