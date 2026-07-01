@@ -55,7 +55,7 @@ body {
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 60px 0;
+    padding: 24px 0;
 }
 
 .nav .container {
@@ -70,7 +70,7 @@ body {
 }
 
 .nav-logo {
-    height: 500px;
+    height: 70px;
     width: auto;
     display: block;
 }
@@ -81,7 +81,7 @@ body {
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--color-white);
@@ -91,7 +91,7 @@ body {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(160deg, #1a1a1a 0%, #2d3436 30%, #1a1a1a 70%, #0d0d0d 100%);
+    background: #0d0d0d;
     z-index: 0;
 }
 
@@ -99,15 +99,20 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 30%, rgba(242, 101, 34, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 70%, rgba(242, 101, 34, 0.06) 0%, transparent 40%);
+    background: none;
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
     max-width: 750px;
-    padding: 580px 24px 80px;
+    padding: 60px 24px 80px;
+}
+
+.hero-logo {
+    width: 280px;
+    height: auto;
+    margin-bottom: 32px;
 }
 
 .hero-tag {
