@@ -485,6 +485,61 @@ body {
 }
 
 
+/* === No App Section === */
+.no-app-section {
+    margin-top: 48px;
+    padding: 36px;
+    background: linear-gradient(145deg, #2d3436, #3d4447);
+    border-radius: var(--radius);
+    color: var(--color-white);
+}
+
+.no-app-section h3 {
+    color: var(--color-accent);
+    margin-bottom: 16px;
+}
+
+.no-app-explain {
+    font-size: 1rem;
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: 24px;
+}
+
+.homescreen-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.homescreen-step {
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.homescreen-step strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    margin-bottom: 4px;
+}
+
+.homescreen-step p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.no-app-result {
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+
 /* === Pricing Section === */
 .pricing-section {
     padding: 100px 24px;
