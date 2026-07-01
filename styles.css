@@ -91,7 +91,7 @@ body {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: #0d0d0d;
+    background: linear-gradient(145deg, #2d3436, #3d4447);
     z-index: 0;
 }
 
@@ -113,6 +113,13 @@ body {
     width: 280px;
     height: auto;
     margin-bottom: 32px;
+    filter: brightness(0) invert(1);
+}
+
+.footer-logo {
+    height: 50px;
+    width: auto;
+    filter: brightness(0) invert(1);
 }
 
 .hero-tag {
@@ -745,11 +752,6 @@ body {
 
 .footer-brand {
     margin-bottom: 12px;
-}
-
-.footer-logo {
-    height: 100px;
-    width: auto;
 }
 
 .footer-tagline {
