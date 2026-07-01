@@ -86,7 +86,9 @@ body {
     width: 200px;
     height: auto;
     margin-bottom: 28px;
-    filter: brightness(0) invert(1);
+    border-radius: 12px;
+    background: white;
+    padding: 12px 16px;
 }
 
 .hero-tag {
@@ -724,7 +726,9 @@ body {
 .footer-logo {
     width: 140px;
     height: auto;
-    filter: brightness(0) invert(1);
+    border-radius: 8px;
+    background: white;
+    padding: 8px 12px;
     margin-bottom: 8px;
 }
 
