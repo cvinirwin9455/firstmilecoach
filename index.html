@@ -354,7 +354,14 @@
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
         // ============================================
 
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabaseClient = null;
+        try {
+            if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch (e) {
+            console.warn('Supabase not configured yet');
+        }
 
         // Beta form submission
         const betaForm = document.getElementById('beta-form');
@@ -378,6 +385,9 @@
             };
 
             try {
+                if (!supabaseClient) {
+                    throw new Error('Form backend not configured yet');
+                }
                 const { data, error } = await supabaseClient
                     .from('beta_signups')
                     .insert([formData]);
