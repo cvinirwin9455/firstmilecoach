@@ -115,13 +115,13 @@ body {
     width: 280px;
     height: auto;
     margin-bottom: 32px;
-    filter: brightness(0) invert(1);
+    border-radius: 12px;
 }
 
 .footer-logo {
     height: 50px;
     width: auto;
-    filter: brightness(0) invert(1);
+    border-radius: 8px;
 }
 
 
