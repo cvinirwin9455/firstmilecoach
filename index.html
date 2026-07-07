@@ -328,14 +328,14 @@
         </div>
     </footer>
 
-    <!-- Geo-restriction overlay (hidden by default, shown if outside allowed regions) -->
-    <div id="geo-blocked" class="geo-blocked" style="display:none;">
-        <div class="geo-blocked-content">
-            <h2>We're not available in your region yet.</h2>
-            <p>First Mile Coach is currently only available in the <strong>United States</strong>, <strong>Canada</strong>, <strong>United Kingdom</strong>, and the <strong>European Union</strong>.</p>
-            <p>We're working on expanding — check back soon.</p>
-            <p class="geo-blocked-note">If you think this is an error, please contact us.</p>
-        </div>
+    <!-- Region Selector (floating) -->
+    <div class="region-selector" id="region-selector">
+        <select id="region-select" aria-label="Select your region">
+            <option value="US">🇺🇸 United States ($)</option>
+            <option value="CA">🇨🇦 Canada ($)</option>
+            <option value="GB">🇬🇧 United Kingdom (£)</option>
+            <option value="EU">🇪🇺 Europe (€)</option>
+        </select>
     </div>
 
     <script>
@@ -397,20 +397,12 @@
             }
         });
 
-        // === Geo-detection: currency localisation + region restriction ===
+        // === Region selector: currency localisation ===
         (function() {
-            const EU_COUNTRIES = [
-                'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR',
-                'DE','GR','HU','IE','IT','LV','LT','LU','MT','NL',
-                'PL','PT','RO','SK','SI','ES','SE'
-            ];
-
-            const ALLOWED_COUNTRIES = [...EU_COUNTRIES, 'GB', 'US', 'CA'];
-
-            function getCurrency(countryCode) {
-                if (countryCode === 'GB') return { symbol: '\u00a3', code: 'GBP' };
-                if (countryCode === 'US' || countryCode === 'CA') return { symbol: '$', code: 'USD' };
-                if (EU_COUNTRIES.includes(countryCode)) return { symbol: '\u20ac', code: 'EUR' };
+            function getCurrency(region) {
+                if (region === 'GB') return { symbol: '\u00a3', code: 'GBP' };
+                if (region === 'US' || region === 'CA') return { symbol: '$', code: 'USD' };
+                if (region === 'EU') return { symbol: '\u20ac', code: 'EUR' };
                 return { symbol: '$', code: 'USD' };
             }
 
@@ -443,50 +435,20 @@
                 });
             }
 
-            function showGeoBlocked() {
-                var overlay = document.getElementById('geo-blocked');
-                if (overlay) {
-                    overlay.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-            }
+            // Load saved region or default to US
+            const savedRegion = localStorage.getItem('fmc_region') || 'US';
+            const regionSelect = document.getElementById('region-select');
+            regionSelect.value = savedRegion;
 
-            function handleCountry(country) {
-                country = (country || '').toUpperCase();
-                if (!country) return;
+            // Apply on load
+            localisePrices(getCurrency(savedRegion));
 
-                if (!ALLOWED_COUNTRIES.includes(country)) {
-                    showGeoBlocked();
-                    return;
-                }
-
-                var currency = getCurrency(country);
-                localisePrices(currency);
-            }
-
-            var cacheBust = '?_=' + Date.now();
-
-            fetch('https://ipapi.co/json/' + cacheBust, { cache: 'no-store' })
-                .then(function(res) {
-                    if (!res.ok) throw new Error('ipapi failed');
-                    return res.json();
-                })
-                .then(function(data) {
-                    handleCountry(data.country_code || data.country);
-                })
-                .catch(function() {
-                    fetch('http://ip-api.com/json/?fields=countryCode', { cache: 'no-store' })
-                        .then(function(res) {
-                            if (!res.ok) throw new Error('ip-api failed');
-                            return res.json();
-                        })
-                        .then(function(data) {
-                            handleCountry(data.countryCode);
-                        })
-                        .catch(function() {
-                            showGeoBlocked();
-                        });
-                });
+            // Update on change
+            regionSelect.addEventListener('change', function() {
+                const region = this.value;
+                localStorage.setItem('fmc_region', region);
+                localisePrices(getCurrency(region));
+            });
         })();
 
         // === Scroll animations ===
