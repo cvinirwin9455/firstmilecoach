@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://firstmilecoach.com">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
@@ -213,12 +214,63 @@
         </div>
     </section>
 
-    <!-- Coming Soon -->
-    <section class="signup" id="join">
+    <!-- Beta Signup -->
+    <section class="beta-signup" id="beta">
         <div class="container">
-            <div class="signup-content fade-in">
-                <h2>We're building this right now.</h2>
-                <p class="signup-sub">First Mile Coach is coming soon. Stay tuned.</p>
+            <div class="beta-header fade-in">
+                <span class="beta-badge">Beta Program</span>
+                <h2>Join the Beta — Free for 6 Months</h2>
+                <p class="beta-intro">We're opening First Mile Coach to a small group of coaches and personal trainers for beta testing. Get full access to the platform — completely free — and help shape what it becomes.</p>
+            </div>
+
+            <div class="beta-terms fade-in">
+                <h3>What you're signing up for:</h3>
+                <ul class="beta-terms-list">
+                    <li><strong>Free for 6 months, unlimited clients.</strong> During the beta period you pay nothing, no matter how many clients you bring on.</li>
+                    <li><strong>After beta: 30 free clients/month for life.</strong> If the platform goes forward after the 6-month beta, you'll receive 30 clients per month free — permanently — as a thank-you for being an early tester.</li>
+                    <li><strong>This is beta software.</strong> Nothing is guaranteed in terms of data persistence or usability. Features may change, be removed, or break. There are no uptime or SLA guarantees.</li>
+                    <li><strong>You must provide feedback.</strong> We'll ask for your input regularly. Your honest feedback directly shapes what gets built.</li>
+                    <li><strong>Submit any client feedback you receive.</strong> Your clients are not required to give feedback, but if they share thoughts on their experience with you, you agree to pass that along to us.</li>
+                    <li><strong>Features may change without notice.</strong> We're iterating fast. Things will move, look different, or work differently week to week.</li>
+                    <li><strong>No public reviews during beta.</strong> Please don't publicly review or rate the platform until official launch. We want to get it right first.</li>
+                    <li><strong>Either party can leave at any time.</strong> No lock-in. If it's not working for you, you can walk away. We reserve the same right.</li>
+                </ul>
+            </div>
+
+            <div class="beta-form-wrapper fade-in">
+                <h3>Apply for Beta Access</h3>
+                <form id="beta-form" class="beta-form">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" name="full_name" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="coaching-type">What type of coaching do you do?</label>
+                        <select id="coaching-type" name="coaching_type" required>
+                            <option value="" disabled selected>Select one...</option>
+                            <option value="running_coach">Running Coach</option>
+                            <option value="personal_trainer">Personal Trainer</option>
+                            <option value="both">Both</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expected-clients">How many clients do you expect to bring on during the 6-month beta?</label>
+                        <input type="number" id="expected-clients" name="expected_clients" required placeholder="e.g. 10" min="1">
+                    </div>
+                    <div class="form-group form-group-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agree-terms" name="agree_terms" required>
+                            <span>I've read and agree to the beta testing terms above</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="beta-submit-btn" id="beta-submit-btn">Join the Beta</button>
+                    <div id="form-message" class="form-message"></div>
+                </form>
             </div>
         </div>
     </section>
@@ -233,6 +285,66 @@
     </footer>
 
     <script>
+        // ============================================
+        // SUPABASE CONFIG — Replace these with your values
+        // ============================================
+        const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        // ============================================
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Beta form submission
+        const betaForm = document.getElementById('beta-form');
+        const formMessage = document.getElementById('form-message');
+        const submitBtn = document.getElementById('beta-submit-btn');
+
+        betaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            formMessage.className = 'form-message';
+            formMessage.textContent = '';
+
+            const formData = {
+                full_name: document.getElementById('full-name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                coaching_type: document.getElementById('coaching-type').value,
+                expected_clients: parseInt(document.getElementById('expected-clients').value),
+                agreed_to_terms: document.getElementById('agree-terms').checked,
+                signed_up_at: new Date().toISOString()
+            };
+
+            try {
+                const { data, error } = await supabase
+                    .from('beta_signups')
+                    .insert([formData]);
+
+                if (error) {
+                    // Check for duplicate email
+                    if (error.code === '23505') {
+                        formMessage.textContent = "You've already signed up! We'll be in touch soon.";
+                        formMessage.className = 'form-message form-message-info';
+                    } else {
+                        throw error;
+                    }
+                } else {
+                    formMessage.textContent = "You're in! We'll be in touch with next steps soon.";
+                    formMessage.className = 'form-message form-message-success';
+                    betaForm.reset();
+                }
+            } catch (err) {
+                console.error('Submission error:', err);
+                formMessage.textContent = 'Something went wrong. Please try again or email us directly.';
+                formMessage.className = 'form-message form-message-error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join the Beta';
+            }
+        });
+
         // Scroll animations
         const observerOptions = {
             threshold: 0.1,
