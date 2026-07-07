@@ -431,7 +431,7 @@
 
                 document.querySelectorAll('[data-price-inline]').forEach(function(el) {
                     const template = el.getAttribute('data-price-inline');
-                    el.textContent = template.replace(/{symbol}/g, symbol);
+                    el.innerHTML = template.replace(/{symbol}/g, symbol);
                 });
             }
 
