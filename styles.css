@@ -886,6 +886,13 @@ body {
     margin: 0 auto;
 }
 
+.beta-countdown {
+    margin-top: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
 .beta-terms {
     background: var(--color-white);
     border-radius: var(--radius);

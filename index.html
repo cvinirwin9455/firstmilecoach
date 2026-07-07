@@ -280,20 +280,22 @@
         <div class="container">
             <div class="beta-header fade-in">
                 <span class="beta-badge">Beta Program</span>
-                <h2>Join the Beta — Free for 6 Months</h2>
+                <h2>Join the Beta — Free Until June 30, 2027</h2>
                 <p class="beta-intro">We're opening First Mile Coach to a small group of coaches and personal trainers for beta testing. Get full access to the platform — completely free, unlimited clients — and help shape what it becomes.</p>
+                <p class="beta-countdown" id="beta-countdown"></p>
             </div>
 
             <div class="beta-terms fade-in">
                 <h3>What you're signing up for:</h3>
                 <ul class="beta-terms-list">
-                    <li><strong>Free for 6 months, unlimited clients.</strong> During the beta period you pay nothing, no matter how many clients you bring on.</li>
-                    <li><strong>After beta: 30 free clients/month for life.</strong> If the platform goes forward after the 6-month beta, you'll receive 30 clients per month free — permanently — as a thank-you for being an early tester.</li>
+                    <li><strong>Free until June 30, 2027 — unlimited clients.</strong> The beta has a fixed end date. No matter when you join, beta access ends June 30, 2027. You pay nothing during this time.</li>
+                    <li><strong>After beta: earn 30 free clients/month for life.</strong> To qualify, you must: sign up at least 10 clients, remain active for at least 3 months, and provide at least 3 feedback responses on how to improve the platform.</li>
+                    <li><strong>Don't qualify? Standard pricing applies.</strong> If you don't meet the criteria above, you'll move to our standard pricing ($1/month per 10 active clients) when the beta ends. We'll email you before the transition.</li>
                     <li><strong>This is beta software.</strong> Nothing is guaranteed in terms of data persistence or usability. Features may change, be removed, or break. There are no uptime or SLA guarantees.</li>
                     <li><strong>You must provide feedback.</strong> We'll ask for your input regularly. Your honest feedback directly shapes what gets built.</li>
                     <li><strong>Submit any client feedback you receive.</strong> Your clients are not required to give feedback, but if they share thoughts on their experience with you, you agree to pass that along to us.</li>
                     <li><strong>Features may change without notice.</strong> We're iterating fast. Things will move, look different, or work differently week to week.</li>
-                    <li><strong>No public reviews during beta.</strong> Please don't publicly review or rate the platform until official launch. We want to get it right first.</li>
+                    <li><strong>No public reviews during beta.</strong> Please don't publicly review or rate the platform until official launch.</li>
                     <li><strong>Either party can leave at any time.</strong> No lock-in. If it's not working for you, you can walk away. We reserve the same right.</li>
                 </ul>
             </div>
@@ -320,13 +322,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="expected-clients">How many clients do you expect to bring on during the 6-month beta?</label>
+                        <label for="expected-clients">How many clients do you expect to bring on during the beta?</label>
                         <input type="number" id="expected-clients" name="expected_clients" required placeholder="e.g. 10" min="1">
                     </div>
                     <div class="form-group form-group-checkbox">
                         <label class="checkbox-label">
                             <input type="checkbox" id="agree-terms" name="agree_terms" required>
-                            <span>I've read and agree to the beta testing terms above</span>
+                            <span>I've read and agree to the <a href="terms.html" target="_blank" style="color: var(--color-primary); text-decoration: underline;">Beta Testing Terms & Conditions</a></span>
                         </label>
                     </div>
                     <button type="submit" class="beta-submit-btn" id="beta-submit-btn">Join the Beta</button>
@@ -412,6 +414,19 @@
             }
         });
 
+
+        // === Beta countdown ===
+        (function() {
+            var betaEnd = new Date('2027-06-30T23:59:59');
+            var now = new Date();
+            var months = (betaEnd.getFullYear() - now.getFullYear()) * 12 + (betaEnd.getMonth() - now.getMonth());
+            var el = document.getElementById('beta-countdown');
+            if (el && months > 0) {
+                el.textContent = months + ' months remaining in the beta — sign up now to get the most out of it.';
+            } else if (el && months <= 0) {
+                el.textContent = 'The beta period has ended.';
+            }
+        })();
 
         // === Region selector: currency localisation ===
         (function() {
