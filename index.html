@@ -375,13 +375,26 @@
             formMessage.className = 'form-message';
             formMessage.textContent = '';
 
+            // Get IP address for consent record
+            let userIp = 'unknown';
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                userIp = ipData.ip;
+            } catch (e) {
+                // IP detection failed — still submit, just without IP
+            }
+
             const formData = {
                 full_name: document.getElementById('full-name').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 coaching_type: document.getElementById('coaching-type').value,
                 expected_clients: parseInt(document.getElementById('expected-clients').value),
                 agreed_to_terms: document.getElementById('agree-terms').checked,
-                signed_up_at: new Date().toISOString()
+                signed_up_at: new Date().toISOString(),
+                consent_ip: userIp,
+                consent_user_agent: navigator.userAgent,
+                consent_terms_version: 'v1-july-2026'
             };
 
             try {
